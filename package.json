@@ -1,28 +1,27 @@
 {
-  "name": "chatbot-backend",
+  "name": "frontend",
   "version": "1.0.0",
-  "description": "AI-powered chatbot backend using Node.js, Express, MongoDB, and OpenAI API",
-  "main": "server.js",
+  "description": "Chatbot frontend built with Next.js and TailwindCSS",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "next dev",
+    "build": "next build",
+    "export": "next export",
+    "start": "next start"
   },
   "keywords": [],
-  "author": "Your Name",
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "@google/generative-ai": "^0.24.1",
-    "@supabase/supabase-js": "^2.50.0",
-    "axios": "^1.6.0",
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "jsonwebtoken": "^9.0.2",
-    "openai": "^4.104.0",
-    "socket.io": "^4.7.2"
+    "autoprefixer": "^10.4.21",
+    "axios": "^1.9.0",
+    "next": "^15.3.3",
+    "postcss": "^8.5.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "socket.io-client": "^4.8.1",
+    "tailwindcss": "^4.1.8"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "@tailwindcss/postcss": "^4.1.8"
   }
 }
