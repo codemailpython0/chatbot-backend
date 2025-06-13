@@ -5,24 +5,35 @@ const cors = require('cors');
 const socketIo = require('socket.io');
 const chatRoutes = require('./routes/chatRoutes');
 const authRoutes = require('./routes/authRoutes');
+const { generateBotResponse } = require('./services/aiService'); // Make sure this exists
 
 const app = express();
 const server = http.createServer(app);
 
-// Enhanced CORS configuration
+// CORS configuration
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:3000',
   credentials: true
 }));
 
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// API Routes
+// Routes
+app.get('/', (req, res) => {
+  res.send('🎉 AI Chatbot Backend is running!');
+});
+
 app.use('/api/chat', chatRoutes);
 app.use('/api/auth', authRoutes);
 
-// Socket.io setup with better error handling
+// Health check
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'healthy' });
+});
+
+// Socket.io
 const io = socketIo(server, {
   cors: {
     origin: process.env.FRONTEND_URL || 'http://localhost:3000',
@@ -51,18 +62,14 @@ io.on('connection', (socket) => {
   });
 });
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'healthy' });
-});
-
-// Error handling middleware
+// Error handler
 app.use((err, req, res, next) => {
   console.error('Server error:', err);
   res.status(500).json({ error: 'Internal server error' });
 });
 
+// Start server
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
